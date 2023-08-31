@@ -11,10 +11,11 @@ def MyCrud():
     ## Creating state
     alltodo = use_state([])
     name, set_name = use_state("")
+    age, set_age = use_state(0)
     password, set_password = use_state(0)
 
     def mysubmit(event):
-        newtodo = {"name": name, "password": password}
+        newtodo = {"name": name, "age": age, "password": password}
 
         # push this to alltodo
         alltodo.set_value(alltodo.value + [newtodo])
@@ -27,7 +28,7 @@ def MyCrud():
             {
               
             },
-            f"{b} => {i['name']} ; {i['password']} ",
+            f"{b} => {i['name']} ; {i['age']} ; {i['password']} ",
         )
         for b, i in enumerate(alltodo.value)
     ]
@@ -51,8 +52,15 @@ def MyCrud():
             html.input(
                 {
                     "type": "test",
-                    "placeholder": "Password",
+                    "placeholder": "Age",
                     "on_change": lambda event: set_password(event["target"]["value"]),
+                }
+            ),
+            html.input(
+                {
+                    "type": "test",
+                    "placeholder": "Password",
+                    "on_change": lambda event: set_age(event["target"]["value"]),
                 }
             ),
             # creating submit button on form
@@ -63,7 +71,7 @@ def MyCrud():
                         lambda event: mysubmit(event), prevent_default=True
                     ),
                 },
-                "Submit",
+                "Join",
             ),
         ),
         html.ul(list),
