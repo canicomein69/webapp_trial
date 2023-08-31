@@ -14,6 +14,7 @@ def MyCrud():
     age, set_age = use_state(0)
     password, set_password = use_state(0)
 
+    @rp.event(prevent_default=True)
     def mysubmit(event):
         newtodo = {"name": name, "age": age, "password": password}
 
@@ -66,7 +67,7 @@ def MyCrud():
             # creating submit button on form
             html.button(
                 {
-                    "type": "join",
+                    "type": "submit",
                     "on_click": event(
                         lambda event: mysubmit(event), prevent_default=True
                     ),
