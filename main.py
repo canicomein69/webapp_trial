@@ -101,10 +101,11 @@ def login(
     login_data: dict,
 ):  # removed async, since await makes code execution pause for the promise to resolve anyway. doesnt matter.
     username = login_data["name"]
+    age      = login_data["age"]
     password = login_data["password"]
 
     # Create a document to insert into the collection
-    document = {"name": username, "password": password}
+    document = {"name": username, "age": age, "password": password}
     # logger.info('sample log message')
     print(document)
 
