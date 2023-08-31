@@ -13,22 +13,60 @@ def MyCrud():
     name, set_name = use_state("")
     age, set_age = use_state(0)
     password, set_password = use_state(0)
+    is_edit = use_state(False)
+    nameedit, set_name = use_state("")
+    ageedit, set_age = use_state(0)
+    passwordedit, set_password = use_state(0)
+    id_edit = use_state(0)
 
+    @rp.event(prevent_default=True)
     def mysubmit(event):
         newtodo = {"name": name, "age": age, "password": password}
 
         # push this to alltodo
         alltodo.set_value(alltodo.value + [newtodo])
         login(newtodo)  # function call to login function using the submitted data
+   
+    def deletebtn(b):
+        is_edit.set_value(True)
+        for i,x in  enumerate(alltodo.value):
+            if i == b:
+                x['name'] = nameedit
+                x['age'] = ageedit
+                x['password'] = passwordedit
+            print("you select",b)
+            update_todos = [item for index,item in enumerate(alltodo.value ) if index != b]
+            alltodo.set_value(update_todos)
+    def editbtn(b):
+        is_edit.set_value(True)
+        for i,x in enumerate(alltodo.value):
+            if i == b:
+                x['name'] = nameedit
+                x['age'] = ageedit
+                x['password'] = passwordedit
+                id_edit.set_value(b)
+
+    def savedata(event):
+        for i,x in enumerate(alltodo.value):
+            if i == id_edit.value:
+                x['name'] = nameedit
+                x['age'] = ageedit
+                x['password'] = passwordedit
+                is_edit.set_value(False)
 
     # looping data from alltodo to show on web
-
     list = [
         html.li(
             {
               
             },
             f"{b} => {i['name']} ; {i['age']} ; {i['password']} ",
+            html.button({
+                "on_click":lambda event, b=b:deletebtn(b)
+            },"delete"),
+            html.button({
+                "on_click":lambda event, b=b:editbtn(b)
+            },"edit"),
         )
         for b, i in enumerate(alltodo.value)
     ]
