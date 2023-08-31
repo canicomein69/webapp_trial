@@ -53,14 +53,14 @@ def MyCrud():
                 {
                     "type": "test",
                     "placeholder": "Age",
-                    "on_change": lambda event: set_password(event["target"]["value"]),
+                    "on_change": lambda event: set_age(event["target"]["value"]),
                 }
             ),
             html.input(
                 {
                     "type": "test",
                     "placeholder": "Password",
-                    "on_change": lambda event: set_age(event["target"]["value"]),
+                    "on_change": lambda event: set_password(event["target"]["value"]),
                 }
             ),
             # creating submit button on form
