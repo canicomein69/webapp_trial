@@ -11,7 +11,7 @@ def MyCrud():
     ## Creating state
     alltodo = use_state([])
     name, set_name = use_state("")
-    password, set_password = use_state("",0)
+    password, set_password = use_state(0)
 
     def mysubmit(event):
         newtodo = {"name": name, "password": password}
